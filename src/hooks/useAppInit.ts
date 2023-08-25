@@ -1,7 +1,7 @@
 import { addToken } from '@features/auth';
+import { useAppDispatch } from '@hooks';
 import { getStorageToken } from '@utils';
 import { useEffect, useState } from 'react';
-import { useAppDispatch } from '@hooks';
 
 export const useAppInit = () => {
     const [initialized, setInitialized] = useState(false);
@@ -10,6 +10,7 @@ export const useAppInit = () => {
     useEffect(() => {
         async function loadToken() {
             const token = getStorageToken();
+
             if (token) {
                 dispatch(addToken(token));
             }

@@ -1,6 +1,6 @@
 import { api } from '@services';
-import { LoginRequestI } from './auth.types';
 import i18n from 'i18next';
+import { LoginRequestI } from './auth.types';
 
 type UserT = {
     id: number;

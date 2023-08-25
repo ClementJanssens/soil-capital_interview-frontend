@@ -4,8 +4,8 @@ import { Link as RouterLink } from 'react-router-dom';
 import * as yup from 'yup';
 
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useLoginMutation } from '@services';
-import { setStorageToken } from '@utils';
+import { UserI, useLoginMutation } from '@services';
+import { createJWT, setStorageToken } from '@utils';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import useLoginFormStyle from './LoginForm.style';
@@ -35,6 +35,10 @@ function LoginForm() {
     const onSubmit = async (data: LoginFormDataT) => {
         try {
             const body = await login(data).unwrap();
+
+            const user = body[0] as UserI;
+            setStorageToken(await createJWT(user), data.remember);
+
             navigate('/');
         } catch (err) {
             console.error(err);
